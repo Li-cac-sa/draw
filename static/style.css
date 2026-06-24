@@ -1,0 +1,129 @@
+:root {
+    --bg-dark: #23272A;
+    --card-front-bg: #36393F;
+    --card-back-bg: #FFFFFF;
+    --text-blue: #2B3990;
+    --accent-blue: #00AEEF;
+    --white: #FFFFFF;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background-color: #2B3990;
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.app-container {
+    width: 90vw;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.app-header h1 {
+    font-size: 2.5rem;
+    color: var(--white);
+    text-align: center;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* Сетка карточек (3 колонки, 2 ряда) */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+/* Контейнер карточки с поддержкой перспективы 3D */
+.card-container {
+    height: 250px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+/* Оболочка, которая будет вращаться */
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+/* Состояние при клике (добавляется через JS) */
+.card-container.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Общие стили для обеих сторон карточки */
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Скрывает изнанку при перевороте */
+    backface-visibility: hidden;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+/* Лицевая сторона (Заглушка для твоих картинок) */
+.card-front {
+    background-color: var(--card-front-bg);
+    background-size: cover;
+    background-position: center;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.card-container:hover .card-front {
+    border-color: var(--accent-blue);
+}
+
+/* Текст-заглушка на лицевой стороне (пока нет картинок) */
+
+
+/* Обратная сторона (Только число, крупно) */
+.card-back {
+    background-color: var(--card-back-bg);
+    color: var(--text-blue);
+    transform: rotateY(180deg); /* Повернута изначально */
+}
+
+.card-back span {
+    font-size: 7rem; /* Экстремально крупное число, как на экране */
+    font-weight: 900;
+}
+
+/* Кнопка сброса */
+.btn {
+    background: var(--text-blue);
+    color: var(--white);
+    border: 2px solid var(--accent-blue);
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: var(--accent-blue);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 174, 239, 0.5);
+}
